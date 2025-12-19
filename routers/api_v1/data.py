@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, Query
+from auth.dependencies import get_current_active_user
 from db.mysql import MySQLClient
 import requests
 
@@ -6,7 +7,7 @@ router = APIRouter()
 db = MySQLClient()
 
 @router.get("/trigger-n8n")
-async def trigger_n8n(prompt: str,n8n_webhook_url: str):
+async def trigger_n8n(prompt: str,n8n_webhook_url: str, current_user: dict = Depends(get_current_active_user)):
     """
     ## 啓動 n8n Webhook
     - 參數: prompt (string)
@@ -22,7 +23,7 @@ async def trigger_n8n(prompt: str,n8n_webhook_url: str):
         return {"status": "error", "detail": str(e)}
 
 @router.post("/create-database")
-async def create_database(database_name: str):
+async def create_database(database_name: str, current_user: dict = Depends(get_current_active_user)):
     """
     ## 建立資料庫
     - 參數: database_name (string) - 資料庫名稱
@@ -38,7 +39,7 @@ async def create_database(database_name: str):
         return {"status": "error","detail": str(e)}
 
 @router.post("/create-tables")
-async def create_tables(database_name: str,table_name: str):
+async def create_tables(database_name: str,table_name: str, current_user: dict = Depends(get_current_active_user)):
     """
     ## 建立資料表
     - 參數: database_name (string) - 資料庫名稱
