@@ -19,7 +19,6 @@ middleware = [
 
 description = """
 # 這只是 Demo 用的
-api_v1 路由包含以下功能：
 """
 app = FastAPI(
     title="FastAPI測試",
