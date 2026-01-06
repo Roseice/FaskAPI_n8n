@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/{user_id}")
-async def Get_user(user_id, current_user: dict = Depends(get_current_active_user)):
+async def Get_user(user_id):
     return {"message": f"Hello user {user_id}"}
 
 @router.post("")

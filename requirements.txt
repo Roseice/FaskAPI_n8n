@@ -5,3 +5,4 @@ uvicorn[standard]
 PyJWT
 pwdlib[argon2]
 python-multipart
+websocket-client
